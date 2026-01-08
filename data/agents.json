@@ -1,0 +1,122 @@
+[
+    {
+        "slug": "code-reviewer",
+        "name": "Code Reviewer",
+        "description": "AI agent specialized in reviewing code for best practices, security vulnerabilities, and performance optimizations.",
+        "category": "Quality",
+        "icon": "Search",
+        "capabilities": [
+            "Static code analysis",
+            "Security vulnerability detection",
+            "Performance optimization suggestions",
+            "Code style enforcement",
+            "Documentation review"
+        ],
+        "useCases": [
+            "Pull request reviews",
+            "Pre-commit code checks",
+            "Legacy code auditing",
+            "Security compliance reviews"
+        ]
+    },
+    {
+        "slug": "api-architect",
+        "name": "API Architect",
+        "description": "Designs and documents RESTful and GraphQL APIs following industry standards and best practices.",
+        "category": "Architecture",
+        "icon": "Network",
+        "capabilities": [
+            "OpenAPI specification generation",
+            "GraphQL schema design",
+            "Endpoint versioning strategies",
+            "Rate limiting recommendations",
+            "Authentication flow design"
+        ],
+        "useCases": [
+            "New API design",
+            "API migration planning",
+            "Documentation generation",
+            "Contract-first development"
+        ]
+    },
+    {
+        "slug": "test-engineer",
+        "name": "Test Engineer",
+        "description": "Creates comprehensive test suites including unit, integration, and end-to-end tests.",
+        "category": "Testing",
+        "icon": "TestTube",
+        "capabilities": [
+            "Unit test generation",
+            "Integration test design",
+            "E2E test scenarios",
+            "Test coverage analysis",
+            "Mock data generation"
+        ],
+        "useCases": [
+            "Test suite creation",
+            "Coverage improvement",
+            "Regression testing",
+            "TDD workflows"
+        ]
+    },
+    {
+        "slug": "doc-writer",
+        "name": "Documentation Writer",
+        "description": "Generates clear, comprehensive documentation for code, APIs, and user guides.",
+        "category": "Documentation",
+        "icon": "FileText",
+        "capabilities": [
+            "README generation",
+            "API documentation",
+            "Code comments",
+            "User guides",
+            "Architecture decision records"
+        ],
+        "useCases": [
+            "Project documentation",
+            "Onboarding materials",
+            "Technical specifications",
+            "Change logs"
+        ]
+    },
+    {
+        "slug": "refactor-specialist",
+        "name": "Refactor Specialist",
+        "description": "Identifies code smells and suggests refactoring strategies to improve code quality.",
+        "category": "Quality",
+        "icon": "RefreshCw",
+        "capabilities": [
+            "Code smell detection",
+            "Design pattern suggestions",
+            "Dependency injection",
+            "Module extraction",
+            "Performance refactoring"
+        ],
+        "useCases": [
+            "Technical debt reduction",
+            "Performance optimization",
+            "Modernization projects",
+            "Code consolidation"
+        ]
+    },
+    {
+        "slug": "devops-assistant",
+        "name": "DevOps Assistant",
+        "description": "Helps configure CI/CD pipelines, containerization, and infrastructure as code.",
+        "category": "Infrastructure",
+        "icon": "Container",
+        "capabilities": [
+            "Dockerfile generation",
+            "CI/CD pipeline design",
+            "Kubernetes manifests",
+            "Terraform configurations",
+            "Monitoring setup"
+        ],
+        "useCases": [
+            "Pipeline automation",
+            "Container orchestration",
+            "Infrastructure provisioning",
+            "Deployment strategies"
+        ]
+    }
+]

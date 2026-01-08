@@ -1,0 +1,159 @@
+[
+    {
+        "slug": "react-component-gen",
+        "name": "React Component Generator",
+        "description": "Generate type-safe React components with proper TypeScript interfaces, styling, and test files.",
+        "category": "Frontend",
+        "icon": "Component",
+        "version": "1.2.0",
+        "author": "Agency Core Team",
+        "installCommand": "npx contexta install react-component-gen",
+        "tags": [
+            "react",
+            "typescript",
+            "components"
+        ],
+        "dependencies": [
+            "react",
+            "typescript"
+        ],
+        "files": [
+            {
+                "path": ".agent/skills/react-component-gen.md",
+                "description": "Main skill definition and usage instructions",
+                "content": "# React Component Generator\\n\\nGenerate React components with TypeScript, proper props interfaces, and accompanying test files.\\n\\n## Usage\\n\\nAsk your AI assistant to create a component:\\n\\n```\\nCreate a Button component with primary and secondary variants\\n```\\n\\n## Output\\n\\n- Component file with TypeScript\\n- Props interface\\n- CSS module or styled-components\\n- Unit test file"
+            }
+        ]
+    },
+    {
+        "slug": "api-route-builder",
+        "name": "API Route Builder",
+        "description": "Scaffold Next.js API routes with validation, error handling, and proper TypeScript types.",
+        "category": "Backend",
+        "icon": "Route",
+        "version": "2.0.1",
+        "author": "Agency Core Team",
+        "installCommand": "npx contexta install api-route-builder",
+        "tags": [
+            "nextjs",
+            "api",
+            "typescript",
+            "validation"
+        ],
+        "dependencies": [
+            "next",
+            "zod"
+        ],
+        "files": [
+            {
+                "path": ".agent/skills/api-route-builder.md",
+                "description": "API route scaffolding skill",
+                "content": "# API Route Builder\\n\\nCreate Next.js API routes with built-in validation using Zod.\\n\\n## Features\\n\\n- Request/response type safety\\n- Zod schema validation\\n- Error handling middleware\\n- Rate limiting support"
+            }
+        ]
+    },
+    {
+        "slug": "prisma-schema-gen",
+        "name": "Prisma Schema Generator",
+        "description": "Design and generate Prisma schemas with relations, indexes, and migration scripts.",
+        "category": "Database",
+        "icon": "Database",
+        "version": "1.5.0",
+        "author": "Agency Core Team",
+        "installCommand": "npx contexta install prisma-schema-gen",
+        "tags": [
+            "prisma",
+            "database",
+            "orm",
+            "postgresql"
+        ],
+        "dependencies": [
+            "prisma",
+            "@prisma/client"
+        ],
+        "files": [
+            {
+                "path": ".agent/skills/prisma-schema-gen.md",
+                "description": "Prisma schema generation skill",
+                "content": "# Prisma Schema Generator\\n\\nGenerate Prisma schemas with proper relations and indexes.\\n\\n## Capabilities\\n\\n- Entity relationship modeling\\n- Index optimization\\n- Migration generation\\n- Seed data scripts"
+            }
+        ]
+    },
+    {
+        "slug": "tailwind-ui-builder",
+        "name": "Tailwind UI Builder",
+        "description": "Create responsive, accessible UI components using Tailwind CSS best practices.",
+        "category": "Frontend",
+        "icon": "Palette",
+        "version": "3.1.0",
+        "author": "Agency Core Team",
+        "installCommand": "npx contexta install tailwind-ui-builder",
+        "tags": [
+            "tailwind",
+            "css",
+            "responsive",
+            "a11y"
+        ],
+        "dependencies": [
+            "tailwindcss"
+        ],
+        "files": [
+            {
+                "path": ".agent/skills/tailwind-ui-builder.md",
+                "description": "Tailwind UI generation skill",
+                "content": "# Tailwind UI Builder\\n\\nBuild responsive, accessible components with Tailwind.\\n\\n## Features\\n\\n- Mobile-first responsive design\\n- Dark mode support\\n- ARIA accessibility\\n- Animation utilities"
+            }
+        ]
+    },
+    {
+        "slug": "jest-test-writer",
+        "name": "Jest Test Writer",
+        "description": "Generate comprehensive Jest test suites with mocking, coverage, and snapshot testing.",
+        "category": "Testing",
+        "icon": "TestTube2",
+        "version": "2.3.0",
+        "author": "Agency Core Team",
+        "installCommand": "npx contexta install jest-test-writer",
+        "tags": [
+            "jest",
+            "testing",
+            "mocking",
+            "coverage"
+        ],
+        "dependencies": [
+            "jest",
+            "@testing-library/react"
+        ],
+        "files": [
+            {
+                "path": ".agent/skills/jest-test-writer.md",
+                "description": "Jest test generation skill",
+                "content": "# Jest Test Writer\\n\\nGenerate comprehensive test suites with proper mocking.\\n\\n## Capabilities\\n\\n- Unit test generation\\n- Mock factory creation\\n- Snapshot testing\\n- Coverage optimization"
+            }
+        ]
+    },
+    {
+        "slug": "docker-compose-gen",
+        "name": "Docker Compose Generator",
+        "description": "Create Docker Compose configurations for development and production environments.",
+        "category": "DevOps",
+        "icon": "Container",
+        "version": "1.8.0",
+        "author": "Agency Core Team",
+        "installCommand": "npx contexta install docker-compose-gen",
+        "tags": [
+            "docker",
+            "containers",
+            "devops",
+            "deployment"
+        ],
+        "dependencies": [],
+        "files": [
+            {
+                "path": ".agent/skills/docker-compose-gen.md",
+                "description": "Docker Compose generation skill",
+                "content": "# Docker Compose Generator\\n\\nGenerate Docker Compose files for multi-container apps.\\n\\n## Features\\n\\n- Service orchestration\\n- Volume management\\n- Network configuration\\n- Environment separation"
+            }
+        ]
+    }
+]
