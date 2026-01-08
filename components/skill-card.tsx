@@ -5,25 +5,17 @@ import Link from "next/link";
 import { GlassCard } from "@/components/ui/glass-card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Download, ChevronRight, Box } from "lucide-react";
-import * as LucideIcons from "lucide-react";
-import type { Skill } from "@/types";
+import { Download, ChevronRight, Wrench, FileText } from "lucide-react";
+import type { ContentFile, SkillFrontmatter } from "@/lib/content";
 import { cn } from "@/lib/utils";
-import type { LucideIcon } from "lucide-react";
 
 interface SkillCardProps {
-    skill: Skill;
-    onInstall: (skill: Skill) => void;
+    skill: ContentFile<SkillFrontmatter>;
+    onInstall: (skill: ContentFile<SkillFrontmatter>) => void;
 }
 
-// Helper to safely get icons
-const getIcon = (iconName: string): LucideIcon => {
-    const icons = LucideIcons as unknown as Record<string, LucideIcon>;
-    return icons[iconName] || Box;
-};
-
 export function SkillCard({ skill, onInstall }: SkillCardProps) {
-    const IconComponent = getIcon(skill.icon);
+    const { frontmatter, lineCount, slug } = skill;
 
     return (
         <GlassCard variant="interactive" className="p-6 group">
@@ -33,22 +25,22 @@ export function SkillCard({ skill, onInstall }: SkillCardProps) {
                     "bg-gradient-to-br from-orange-500/20 to-amber-500/20",
                     "border border-orange-500/20"
                 )}>
-                    <IconComponent className="w-6 h-6 text-orange-400" />
+                    <Wrench className="w-6 h-6 text-orange-400" />
                 </div>
                 <Badge variant="secondary" className="bg-[#3a3a3c] text-[#a1a1a6] border-[#48484a]">
-                    v{skill.version}
+                    v{frontmatter.version || '1.0.0'}
                 </Badge>
             </div>
 
             <h3 className="text-lg font-semibold text-heading mb-2 group-hover:text-orange-300 transition-colors">
-                {skill.name}
+                {frontmatter.name}
             </h3>
             <p className="text-sm text-body mb-4 line-clamp-2">
-                {skill.description}
+                {frontmatter.description}
             </p>
 
-            <div className="flex flex-wrap gap-2 mb-5">
-                {skill.tags.slice(0, 3).map((tag) => (
+            <div className="flex flex-wrap gap-2 mb-4">
+                {frontmatter.tags?.slice(0, 3).map((tag) => (
                     <Badge
                         key={tag}
                         variant="outline"
@@ -57,6 +49,13 @@ export function SkillCard({ skill, onInstall }: SkillCardProps) {
                         {tag}
                     </Badge>
                 ))}
+            </div>
+
+            <div className="flex items-center gap-2 text-sm text-[#a1a1a6] mb-4">
+                <FileText className="w-4 h-4" />
+                <span>{lineCount} lines</span>
+                <span className="text-[#48484a]">•</span>
+                <span>{frontmatter.author || 'Unknown'}</span>
             </div>
 
             <div className="flex items-center gap-2">
@@ -79,7 +78,7 @@ export function SkillCard({ skill, onInstall }: SkillCardProps) {
                     <Download className="w-4 h-4 mr-2" />
                     Install
                 </Button>
-                <Link href={`/skills/${skill.slug}`}>
+                <Link href={`/skills/${slug}`}>
                     <Button
                         variant="ghost"
                         size="sm"

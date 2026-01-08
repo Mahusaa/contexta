@@ -3,15 +3,11 @@ import Link from "next/link";
 import { GlassCard } from "@/components/ui/glass-card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, Clock, CheckCircle2, Workflow } from "lucide-react";
-import * as LucideIcons from "lucide-react";
-import type { Workflow as WorkflowType } from "@/types";
+import { ArrowLeft, GitBranch, FileText, Clock } from "lucide-react";
+import { getWorkflowBySlug, getAllWorkflows } from "@/lib/content";
+import { CopyButton } from "@/components/copy-button";
+import { MarkdownContent } from "@/components/markdown-content";
 import { cn } from "@/lib/utils";
-import type { LucideIcon } from "lucide-react";
-
-import workflowsData from "@/data/workflows.json";
-
-const workflows = workflowsData as WorkflowType[];
 
 interface PageProps {
     params: Promise<{ slug: string }>;
@@ -23,13 +19,8 @@ const difficultyColors = {
     advanced: "bg-red-500/10 text-red-400 border-red-500/20",
 };
 
-// Helper to safely get icons
-const getIcon = (iconName: string): LucideIcon => {
-    const icons = LucideIcons as unknown as Record<string, LucideIcon>;
-    return icons[iconName] || Workflow;
-};
-
 export async function generateStaticParams() {
+    const workflows = getAllWorkflows();
     return workflows.map((workflow) => ({
         slug: workflow.slug,
     }));
@@ -37,17 +28,18 @@ export async function generateStaticParams() {
 
 export default async function WorkflowDetailPage({ params }: PageProps) {
     const { slug } = await params;
-    const workflow = workflows.find((w) => w.slug === slug);
+    const workflow = getWorkflowBySlug(slug);
 
     if (!workflow) {
         notFound();
     }
 
-    const IconComponent = getIcon(workflow.icon);
+    const { frontmatter, content, rawContent, lineCount, filePath } = workflow;
+    const difficulty = frontmatter.difficulty || 'beginner';
 
     return (
         <div className="min-h-screen relative overflow-hidden">
-            {/* Background Spotlights */}
+            {/* Background */}
             <div className="fixed inset-0 pointer-events-none">
                 <div className="absolute inset-0 bg-gradient-to-b from-blue-500/5 to-transparent" />
             </div>
@@ -55,97 +47,64 @@ export default async function WorkflowDetailPage({ params }: PageProps) {
             <div className="relative z-10 max-w-4xl mx-auto px-6 py-12">
                 {/* Back Button */}
                 <Link href="/">
-                    <Button variant="ghost" className="mb-8 text-zinc-500 hover:text-zinc-200">
+                    <Button variant="ghost" className="mb-8 text-[#a1a1a6] hover:text-white">
                         <ArrowLeft className="w-4 h-4 mr-2" />
                         Back to browse
                     </Button>
                 </Link>
 
                 {/* Header */}
-                <div className="flex items-start gap-6 mb-10">
+                <div className="flex items-start gap-6 mb-8">
                     <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-blue-500/20 to-cyan-500/20 border border-blue-500/20 flex items-center justify-center shrink-0">
-                        <IconComponent className="w-10 h-10 text-blue-400" />
+                        <GitBranch className="w-10 h-10 text-blue-400" />
                     </div>
                     <div className="flex-1">
                         <div className="flex items-center gap-3 mb-3">
-                            <Badge variant="secondary" className="bg-blue-500/10 text-blue-400 border-blue-500/20">
-                                {workflow.category}
+                            <Badge variant="secondary" className={difficultyColors[difficulty]}>
+                                {difficulty}
                             </Badge>
-                            <Badge variant="secondary" className={difficultyColors[workflow.difficulty]}>
-                                {workflow.difficulty}
-                            </Badge>
-                        </div>
-                        <h1 className="text-3xl font-bold text-heading mb-2">{workflow.name}</h1>
-                        <p className="text-lg text-body">{workflow.description}</p>
-                    </div>
-                </div>
-
-                {/* Meta Info */}
-                <div className="flex items-center gap-6 mb-8">
-                    <div className="flex items-center gap-2 text-body">
-                        <Clock className="w-4 h-4 text-blue-400" />
-                        <span>{workflow.estimatedTime}</span>
-                    </div>
-                    <div className="flex items-center gap-2 text-body">
-                        <CheckCircle2 className="w-4 h-4 text-blue-400" />
-                        <span>{workflow.steps.length} steps</span>
-                    </div>
-                </div>
-
-                {/* Steps */}
-                <GlassCard className="p-6">
-                    <h2 className="text-lg font-semibold text-heading mb-6">Workflow Steps</h2>
-
-                    <div className="space-y-4">
-                        {workflow.steps.map((step, index) => (
-                            <div key={index} className="relative">
-                                {/* Connector line */}
-                                {index < workflow.steps.length - 1 && (
-                                    <div className="absolute left-5 top-12 bottom-0 w-px bg-gradient-to-b from-blue-500/30 to-transparent" />
-                                )}
-
-                                <div className="flex gap-4">
-                                    {/* Step number */}
-                                    <div className={cn(
-                                        "w-10 h-10 rounded-xl flex items-center justify-center shrink-0",
-                                        "bg-gradient-to-br from-blue-500/20 to-cyan-500/20",
-                                        "border border-blue-500/20 text-blue-400 font-semibold"
-                                    )}>
-                                        {index + 1}
-                                    </div>
-
-                                    {/* Step content */}
-                                    <div className="flex-1 glass-card rounded-xl p-4">
-                                        <h3 className="font-medium text-heading mb-1">{step.title}</h3>
-                                        <p className="text-sm text-body mb-3">{step.description}</p>
-                                        {step.action && (
-                                            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-blue-500/10 text-xs text-blue-400 font-mono">
-                                                {step.action}
-                                            </div>
-                                        )}
-                                    </div>
-                                </div>
+                            <div className="flex items-center gap-1.5 text-sm text-[#a1a1a6]">
+                                <Clock className="w-4 h-4" />
+                                <span>{frontmatter.estimatedTime || '30 min'}</span>
                             </div>
-                        ))}
+                            <div className="flex items-center gap-1.5 text-sm text-[#a1a1a6]">
+                                <FileText className="w-4 h-4" />
+                                <span>{lineCount} lines</span>
+                            </div>
+                        </div>
+                        <h1 className="text-3xl font-bold text-heading mb-2">{frontmatter.name}</h1>
+                        <p className="text-lg text-body">{frontmatter.description}</p>
+                    </div>
+                </div>
+
+                {/* Workflow Content */}
+                <GlassCard className="p-6 mb-6">
+                    <div className="flex items-center justify-between mb-4">
+                        <h2 className="text-lg font-semibold text-heading">Workflow Guide</h2>
+                    </div>
+                    <div className="prose prose-invert prose-sm max-w-none">
+                        <MarkdownContent content={content} />
                     </div>
                 </GlassCard>
 
-                {/* Start Button */}
-                <div className="mt-8 text-center">
-                    <Button
-                        size="lg"
-                        className={cn(
-                            "px-8 py-6 h-auto rounded-xl",
-                            "bg-gradient-to-r from-blue-600 to-cyan-600",
-                            "hover:from-blue-500 hover:to-cyan-500",
-                            "text-white font-medium text-lg",
-                            "shadow-lg shadow-blue-500/20",
-                            "transition-all duration-300"
-                        )}
-                    >
-                        Start Workflow
-                    </Button>
-                </div>
+                {/* Raw File */}
+                <GlassCard className="p-6">
+                    <div className="flex items-center justify-between mb-4">
+                        <div className="flex items-center gap-2">
+                            <FileText className="w-5 h-5 text-blue-400" />
+                            <h2 className="text-lg font-semibold text-heading">Raw File</h2>
+                        </div>
+                        <div className="flex items-center gap-3">
+                            <span className="text-xs text-[#a1a1a6]">{filePath}</span>
+                            <CopyButton text={rawContent} label="Copy All" />
+                        </div>
+                    </div>
+                    <div className="glass-card rounded-xl p-4 max-h-[400px] overflow-auto">
+                        <pre className="text-xs text-body font-mono whitespace-pre-wrap">
+                            {rawContent}
+                        </pre>
+                    </div>
+                </GlassCard>
             </div>
         </div>
     );

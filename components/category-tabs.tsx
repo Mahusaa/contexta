@@ -11,7 +11,7 @@ interface CategoryTabsProps {
     className?: string;
 }
 
-const categories: { value: CategoryType; label: string; count?: number }[] = [
+const categories: { value: CategoryType; label: string }[] = [
     { value: "agents", label: "Agents" },
     { value: "skills", label: "Skills" },
     { value: "workflows", label: "Workflows" },
@@ -27,7 +27,7 @@ export function CategoryTabs({ value, onValueChange, className }: CategoryTabsPr
                         value={category.value}
                         className={cn(
                             "px-6 py-2 rounded-xl text-sm font-medium transition-all duration-300",
-                            "data-[state=inactive]:text-zinc-500 data-[state=inactive]:hover:text-zinc-300",
+                            "data-[state=inactive]:text-[#a1a1a6] data-[state=inactive]:hover:text-white",
                             "data-[state=inactive]:bg-transparent",
                             "data-[state=active]:bg-gradient-to-r data-[state=active]:from-orange-500/20 data-[state=active]:to-amber-500/20",
                             "data-[state=active]:text-white data-[state=active]:shadow-lg",
